@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Link -->
+    <link href="./output.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- icon link  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+    />
+    <title>Invoice-Maker</title>
+  </head>
+  <body>
+    <header class="h-28 shadow-lg">
+      <h1 class="text-center font-semibold text-4xl p-2 mt-6">
+        Invoice <span class="text-red-500">Maker</span>
+      </h1>
+    </header>
+    <!-- ................ Main Start................ -->
+    <main>
+      <section class="flex justify-center mt-2">
+        <!-- container div -->
+        <div class="bg-gray-200 h-full w-5/6 p-4">
+          <!--.................... 1st part ...................-->
+          <div class="flex justify-around items-center mb-2">
+            <!-- Select Customer -->
+            <div>
+              <div class="mb-2">
+                <label for="" class="text-2xl">To</label><br />
+                <div id="selectCustomer">
+                  <select
+                    name="customer_name"
+                    id="names"
+                    class="p-2 rounded-md w-44"
+                  >
+                    <option value="customer" class="text-gray-200 p-2">
+                      Select a contact
+                    </option>
+                    <option value="Walk-in Customer" class="text-black p-2">
+                      Walk-in Customer
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- Date Pick -->
+            <div class="mb-2">
+              <label for="" class="text-2xl">Date</label><br />
+              <input
+                class="p-2 rounded-md"
+                type="text"
+                id="datePickerInput"
+                placeholder="Select a date"
+              />
+              <i class="uil uil-calender -ml-10"></i>
+              <div
+                id="datePicker"
+                class="hover:cursor-pointer absolute bg-white border shadow-md border-gray-200"
+              ></div>
+            </div>
+            <!--Due Date Pick -->
+            <div>
+              <label for="" class="text-2xl">Due Date</label><br />
+              <input
+                class="p-2 rounded-md border border-gray-300"
+                type="text"
+                id="datePickerInput"
+                placeholder="Select a date"
+                disabled
+              />
+              <i class="uil uil-calender -ml-10"></i>
+
+              <div
+                id="datePicker"
+                class="hover:cursor-pointer absolute bg-white border shadow-md border-gray-200"
+              ></div>
+            </div>
+            <!-- Invoice  -->
+            <div class="mb-2">
+              <label for="" class="text-2xl">Invoice #</label><br />
+              <input
+                id="getInvoice"
+                class="p-2 rounded-md"
+                type="text"
+                placeholder=""
+                value="INV-000"
+              />
+            </div>
+            <!-- Reference -->
+            <div class="mb-2">
+              <label for="" class="text-2xl">Reference</label><br />
+              <input
+                class="p-2 rounded-md"
+                type="text"
+                placeholder="Enter reference"
+              />
+            </div>
+            <!-- Preview -->
+            <div>
+              <div class="flex items-center">
+                <i
+                  class="uil uil-eye text-blue-600 text-[2rem] hover:cursor-pointer"
+                ></i>
+                <label
+                  for=""
+                  class="text-[1.4rem] font-bold ml-2 text-blue-600 hover:cursor-pointer"
+                  >Preview</label
+                >
+                <button
+                  class="px-6 py-1 ml-6 rounded-md shadow-md border border-gray-400 text-blue-600"
+                >
+                  <i class="uil uil-file text-2xl"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <span class="text-gray-300"><hr /></span>
+
+          <!--................... 2nd part div ................-->
+
+          <div class="flex justify-between items-center px-5 mt-4 mb-4">
+            <!-- TAKA -->
+            <div>
+              <div class="mb-2">
+                <select
+                  name="customer_name"
+                  id="names"
+                  class="p-2 rounded-md w-36"
+                >
+                  <option value="customer" class="text-black text-[1.3rem] p-2">
+                    RUPEE
+                  </option>
+                  <option value="customer" class="text-black text-[1.3rem] p-2">
+                    Doller
+                  </option>
+                  <option value="customer" class="text-black text-[1.3rem] p-2">
+                    Yean
+                  </option>
+                  <option value="customer" class="text-black text-[1.3rem] p-2">
+                    TAKA
+                  </option>
+                </select>
+              </div>
+            </div>
+            <!-- VAT & TAX -->
+            <div>
+              <div class="flex items-center">
+                <label for="" class="text-[1.2rem] font-bold"
+                  >Amounts are</label
+                >
+                <div class="ml-2" id="taxExclusive">
+                  <select
+                    name="customer_name"
+                    id="selectOptions"
+                    class="p-2 rounded-md w-36"
+                  >
+                    <option
+                      value="Exclusive"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Tax Exclusive
+                    </option>
+                    <option
+                      value="Inclusive"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Tax Inclusive
+                    </option>
+                    <option value="No" class="text-black text-[1.3rem] p-2">
+                      No Tax
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ..........table start........... -->
+
+          <div class="container mx-auto px-2">
+            <table class="table-auto bg-white shadow-md rounded mb-4">
+              <thead class="bg-gray-200 border border-gray-200">
+                <tr>
+                  <th class="p-2 w-2"></th>
+                  <th class="p-2 w-10">Item</th>
+                  <th class="p-2 w-2/6">Description</th>
+                  <th class="p-2 w-16">Quantity</th>
+                  <th class="p-2 w-20">Unit Price</th>
+                  <th class="p-2">Disc %</th>
+                  <th class="p-2">Account</th>
+                  <th class="p-2">Tax Rate</th>
+                  <th class="p-2 px-2">Amount Price</th>
+                  <th class="p-2 w-2"></th>
+                </tr>
+              </thead>
+              <!-- Row -->
+              <tbody id="invoiceTable">
+                <td class="border border-gray-300 p-1">
+                  <i class="uil uil-elipsis-double-v-alt"></i>
+                </td>
+
+                <td class="border border-gray-300 p-1">
+                  <input type="text" class="p-2 focus:outline-blue-200 w-10" />
+                </td>
+
+                <td class="border border-gray-300 p-1">
+                  <input
+                    type="text"
+                    class="p-2 w-full focus:outline-blue-200"
+                  />
+                </td>
+
+                <td class="border border-gray-300 p-1">
+                  <input
+                    type="number"
+                    class="p-2 w-16 focus:outline-blue-200 quantity"
+                    oninput="calculateTotal(this)"
+                  />
+                </td>
+                <td class="border border-gray-300 p-1">
+                  <input
+                    type="number"
+                    class="p-2 focus:outline-blue-200 unitprice w-20"
+                    oninput="calculateTotal(this)"
+                  />
+                </td>
+                <td class="border border-gray-300 p-1">
+                  <input type="text" class="w-24 p-2 focus:outline-blue-200" />
+                </td>
+
+                <td class="border border-gray-300 p-1">
+                  <select
+                    name="customer_name"
+                    id="names"
+                    class="p-2 w-52 focus:outline-blue-200"
+                  >
+                    <option
+                      value="customer"
+                      class="text-black text-[1.3rem] p-2"
+                    ></option>
+                    <option
+                      value="customer"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Accounts Payable
+                    </option>
+                    <option
+                      value="customer"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Accounts Receivable
+                    </option>
+                    <option
+                      value="customer"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Bank
+                    </option>
+                    <option
+                      value="customer"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Cash
+                    </option>
+                    <option
+                      value="customer"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Cost Of Sales
+                    </option>
+                    <option
+                      value="customer"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Damage Inventory
+                    </option>
+                    <option
+                      value="customer"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Discount Earned
+                    </option>
+                    <option
+                      value="customer"
+                      class="text-black text-[1.3rem] p-2"
+                    >
+                      Discount Given
+                    </option>
+                  </select>
+                </td>
+
+                <td class="border border-gray-300 p-1">
+                  <div id="calculateBtn">
+                    <select
+                      name="customer_name"
+                      id="selectOption"
+                      class="p-2 w-52 focus:outline-blue-200"
+                    >
+                      <option class="text-black text-[1.3rem] p-2"></option>
+                      <option value="15%" class="text-black text-[1.3rem] p-2">
+                        GST@15%
+                      </option>
+                      <option value="10%" class="text-black text-[1.3rem] p-2">
+                        Standard@10%
+                      </option>
+                      <option
+                        value="customer"
+                        class="text-black text-[1.3rem] p-2"
+                      >
+                        Tax Exempt@0%
+                      </option>
+                    </select>
+                  </div>
+                </td>
+
+                <td id="Amount" class="border border-gray-300 px-2 totalprice">
+                  0.00
+                </td>
+                <td class="border border-gray-300 p-1 text-center">
+                  <button
+                    onclick="removeRow(this)"
+                    class="hover:bg-red-700 text-gray-400 font-bold py-1 px-2 rounded text-2xl"
+                  >
+                    X
+                  </button>
+                </td>
+              </tbody>
+            </table>
+            <!-- ...............Table end.............. -->
+            <div class="flex justify-between">
+              <!-- Add line button -->
+              <div class="">
+                <button
+                  onclick="addRow()"
+                  class="text-blue-500 bg-white shadow-md font-bold py-2 px-4 rounded"
+                >
+                  Add a new line
+                </button>
+              </div>
+              <!-- Sub total price  -->
+              <div class="w-96">
+                <div class="px-6">
+                  <div class="px-4 mb-1">
+                    <div class="flex justify-between items-center">
+                      <p class="text-2xl">Subtotal</p>
+                      <span id="Subtotalprice">0.00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <p class="text-2xl">Tax</p>
+                      <span id="taxTotal">0.00</span>
+                    </div>
+                  </div>
+                  <p class="mb-4 w-72 border border-black"></p>
+
+                  <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold">Total</h1>
+                    <span id="MaxtotalAmount" class="text-2xl font-bold"
+                      >0.00</span
+                    >
+                  </div>
+
+                  <p class="mt-4 p-1 border"></p>
+                  <!-- <p class="border"></p> -->
+                </div>
+              </div>
+            </div>
+            <!-- ..........table container div end........... -->
+          </div>
+        </div>
+        <!-- container div end -->
+      </section>
+      <!-- save section -->
+      <section class="flex justify-center mb-4">
+        <div class="bg-white shadow-md h-full w-5/6 p-4 flex justify-between">
+          <button
+            id="addButton"
+            class="bg-blue-500 text-white font-bold py-2 px-6 rounded hover:bg-blue-700"
+          >
+            Save
+          </button>
+          <button
+            class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+          >
+            Approve
+          </button>
+        </div>
+      </section>
+
+      <!-- Note & History Section -->
+      <section class="flex justify-center">
+        <div class="h-full w-5/6 p-4">
+          <p class="mb-2 text-gray-400 font-bold">History & Note</p>
+          <p id="setHistory"></p>
+          <button
+            class="p-2 rounded-md shadow text-blue-600 font-bold bg-gray-200"
+          >
+            Add Note
+          </button>
+        </div>
+      </section>
+    </main>
+    <footer class="flex justify-center">
+      <small class="mt-16"
+        >All Rights Reserved © Mostafizur Rahman Badhon</small
+      >
+    </footer>
+
+    <!-- JavaScript Link -->
+    <script src="./script.js"></script>
+  </body>
+</html>
