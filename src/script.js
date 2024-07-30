@@ -1,4 +1,5 @@
 // Date Picker
+
 document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("datePickerInput");
   const datePicker = document.getElementById("datePicker");
@@ -91,6 +92,107 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Due Date Picker Enable
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("datePickerInputs");
+  const datePicker = document.getElementById("datePickers");
+
+  input.addEventListener("focus", showDatePicker);
+  document.addEventListener("click", function (event) {
+    if (!datePicker.contains(event.target) && event.target !== input) {
+      datePicker.style.display = "none";
+    }
+  });
+
+  function showDatePicker() {
+    const rect = input.getBoundingClientRect();
+    datePicker.style.top = `${rect.bottom + window.scrollY}px`;
+    datePicker.style.left = `${rect.left + window.scrollX}px`;
+    datePicker.style.display = "block";
+    generateCalendar(new Date());
+  }
+
+  function generateCalendar(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+
+    const calendar = document.createElement("table");
+    const header = document.createElement("tr");
+
+    const prevMonth = document.createElement("th");
+    prevMonth.innerHTML = "&lt;";
+    prevMonth.addEventListener("click", () =>
+      generateCalendar(new Date(year, month - 1))
+    );
+    header.appendChild(prevMonth);
+
+    const monthYear = document.createElement("th");
+    monthYear.colSpan = 5;
+    monthYear.innerText = `${year}-${String(month + 1).padStart(2, "0")}`;
+    header.appendChild(monthYear);
+
+    const nextMonth = document.createElement("th");
+    nextMonth.innerHTML = "&gt;";
+    nextMonth.addEventListener("click", () =>
+      generateCalendar(new Date(year, month + 1))
+    );
+    header.appendChild(nextMonth);
+
+    calendar.appendChild(header);
+
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const weekRow = document.createElement("tr");
+    daysOfWeek.forEach((day) => {
+      const th = document.createElement("th");
+      th.innerText = day;
+      weekRow.appendChild(th);
+    });
+    calendar.appendChild(weekRow);
+
+    let currentRow = document.createElement("tr");
+    for (let i = 0; i < firstDay.getDay(); i++) {
+      const emptyCell = document.createElement("td");
+      currentRow.appendChild(emptyCell);
+    }
+
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+      if (currentRow.children.length === 7) {
+        calendar.appendChild(currentRow);
+        currentRow = document.createElement("tr");
+      }
+      const cell = document.createElement("td");
+      cell.innerText = day;
+      cell.addEventListener("click", () => {
+        input.value = `${year}-${String(month + 1).padStart(2, "0")}-${String(
+          day
+        ).padStart(2, "0")}`;
+        datePicker.style.display = "none";
+      });
+      currentRow.appendChild(cell);
+    }
+
+    while (currentRow.children.length < 7) {
+      const emptyCell = document.createElement("td");
+      currentRow.appendChild(emptyCell);
+    }
+    calendar.appendChild(currentRow);
+
+    datePicker.innerHTML = "";
+    datePicker.appendChild(calendar);
+  }
+});
+
+// active disable fild
+function enableDueDate() {
+  console.log("click me");
+  const getdueDatefild = document.getElementById("datePickerInputs");
+  if (getdueDatefild.disabled) {
+    getdueDatefild.disabled = false;
+  }
+}
 // Date Picker END
 
 // table part start

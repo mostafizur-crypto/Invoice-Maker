@@ -68,25 +68,26 @@
               <div
                 id="datePicker"
                 class="hover:cursor-pointer absolute bg-white border shadow-md border-gray-200"
+                onclick="enableDueDate()"
               ></div>
             </div>
             <!--Due Date Pick -->
-            <div>
+            <div class="mb-2">
               <label for="" class="text-2xl">Due Date</label><br />
               <input
+                disabled
                 class="p-2 rounded-md border border-gray-300"
                 type="text"
-                id="datePickerInput"
+                id="datePickerInputs"
                 placeholder="Select a date"
-                disabled
               />
               <i class="uil uil-calender -ml-10"></i>
-
               <div
-                id="datePicker"
+                id="datePickers"
                 class="hover:cursor-pointer absolute bg-white border shadow-md border-gray-200"
               ></div>
             </div>
+
             <!-- Invoice  -->
             <div class="mb-2">
               <label for="" class="text-2xl">Invoice #</label><br />
