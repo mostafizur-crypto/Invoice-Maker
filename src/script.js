@@ -299,35 +299,28 @@ function addRow() {
                   </select>
                 </td>
                 
-                <td class="border border-gray-300 p-1">
-                  <select
-                    name="customer_name"
-                    id="names"
-                    class="p-2 w-52 focus:outline-blue-200"
-                  >
-                    <option
-                      value="customer"
-                      class="text-black text-[1.3rem] p-2"
-                    ></option>
-                    <option
-                      value="customer"
-                      class="text-black text-[1.3rem] p-2"
+                 <td class="border border-gray-300 p-1" onclick="vatTaxCalculate()">
+                  <div id="calculateBtn">
+                    <select
+                      name="customer_name"
+                      id="selectOption"
+                      class="p-2 w-52 focus:outline-blue-200"
                     >
-                      Tax Exempt@0%
-                    </option>
-                    <option
-                      value="customer"
-                      class="text-black text-[1.3rem] p-2"
-                    >
-                      Standard@10%
-                    </option>
-                    <option
-                      value="customer"
-                      class="text-black text-[1.3rem] p-2"
-                    >
-                      GST@15%
-                    </option>
-                  </select>
+                      <option class="text-black text-[1.3rem] p-2"></option>
+                      <option value="15%" class="text-black text-[1.3rem] p-2">
+                        GST@15%
+                      </option>
+                      <option value="10%" class="text-black text-[1.3rem] p-2">
+                        Standard@10%
+                      </option>
+                      <option
+                        value="customer"
+                        class="text-black text-[1.3rem] p-2"
+                      >
+                        Tax Exempt@0%
+                      </option>
+                    </select>
+                  </div>
                 </td>
 
                 <td class="border border-gray-300 px-2 totalprice">0.00</td>
@@ -381,48 +374,52 @@ function calculateGrandTotal() {
 // table part end
 
 // vat & Tax Calculate
+function vatTaxCalculate() {
+  document
+    .getElementById("calculateBtn")
+    .addEventListener("click", function () {
+      console.log("clickmeeeeeee");
+      const selectElement = document.getElementById("selectOption");
+      const selectedValue = selectElement.value;
+      const subtotal = document.getElementById("Subtotalprice");
+      const getSubtotal = subtotal.innerText;
 
-document.getElementById("calculateBtn").addEventListener("click", function () {
-  const selectElement = document.getElementById("selectOption");
-  const selectedValue = selectElement.value;
-  const subtotal = document.getElementById("Subtotalprice");
-  const getSubtotal = subtotal.innerText;
-
-  if (selectedValue == "15%") {
-    const calculateAmountTotal = (15 / 100) * getSubtotal;
-    const TotalTaxAmount = document.getElementById("taxTotal");
-    const StringTaxAmount = parseFloat(TotalTaxAmount.innerText);
-    TotalTaxAmount.innerText = calculateAmountTotal.toFixed(2);
-    const MaxAmount = document.getElementById("MaxtotalAmount");
-    const StringMaxAmount = parseFloat(MaxAmount);
-    // convert int number
-    const stringGetsubTotal = parseFloat(getSubtotal);
-    const stringcalculateAmount = parseFloat(calculateAmountTotal);
-    MaxAmount.innerText = stringGetsubTotal + stringcalculateAmount;
-  } else if (selectedValue == "10%") {
-    const calculateAmountTotal = (10 / 100) * getSubtotal;
-    const TotalTaxAmount = document.getElementById("taxTotal");
-    const StringTaxAmount = parseFloat(TotalTaxAmount.innerText);
-    TotalTaxAmount.innerText = calculateAmountTotal.toFixed(2);
-    const MaxAmount = document.getElementById("MaxtotalAmount");
-    const StringMaxAmount = parseFloat(MaxAmount);
-    // convert int number
-    const stringGetsubTotal = parseFloat(getSubtotal);
-    const stringcalculateAmount = parseFloat(calculateAmountTotal);
-    MaxAmount.innerText = stringGetsubTotal + stringcalculateAmount;
-  } else {
-    const calculateAmountTotal = (0 / 100) * getSubtotal;
-    const TotalTaxAmount = document.getElementById("taxTotal");
-    const StringTaxAmount = parseFloat(TotalTaxAmount.innerText);
-    TotalTaxAmount.innerText = calculateAmountTotal.toFixed(2);
-    const MaxAmount = document.getElementById("MaxtotalAmount");
-    const StringMaxAmount = parseFloat(MaxAmount);
-    // convert int number
-    const stringGetsubTotal = parseFloat(getSubtotal);
-    const stringcalculateAmount = parseFloat(calculateAmountTotal);
-    MaxAmount.innerText = stringGetsubTotal + stringcalculateAmount;
-  }
-});
+      if (selectedValue == "15%") {
+        const calculateAmountTotal = (15 / 100) * getSubtotal;
+        const TotalTaxAmount = document.getElementById("taxTotal");
+        const StringTaxAmount = parseFloat(TotalTaxAmount.innerText);
+        TotalTaxAmount.innerText = calculateAmountTotal.toFixed(2);
+        const MaxAmount = document.getElementById("MaxtotalAmount");
+        const StringMaxAmount = parseFloat(MaxAmount);
+        // convert int number
+        const stringGetsubTotal = parseFloat(getSubtotal);
+        const stringcalculateAmount = parseFloat(calculateAmountTotal);
+        MaxAmount.innerText = stringGetsubTotal + stringcalculateAmount;
+      } else if (selectedValue == "10%") {
+        const calculateAmountTotal = (10 / 100) * getSubtotal;
+        const TotalTaxAmount = document.getElementById("taxTotal");
+        const StringTaxAmount = parseFloat(TotalTaxAmount.innerText);
+        TotalTaxAmount.innerText = calculateAmountTotal.toFixed(2);
+        const MaxAmount = document.getElementById("MaxtotalAmount");
+        const StringMaxAmount = parseFloat(MaxAmount);
+        // convert int number
+        const stringGetsubTotal = parseFloat(getSubtotal);
+        const stringcalculateAmount = parseFloat(calculateAmountTotal);
+        MaxAmount.innerText = stringGetsubTotal + stringcalculateAmount;
+      } else {
+        const calculateAmountTotal = (0 / 100) * getSubtotal;
+        const TotalTaxAmount = document.getElementById("taxTotal");
+        const StringTaxAmount = parseFloat(TotalTaxAmount.innerText);
+        TotalTaxAmount.innerText = calculateAmountTotal.toFixed(2);
+        const MaxAmount = document.getElementById("MaxtotalAmount");
+        const StringMaxAmount = parseFloat(MaxAmount);
+        // convert int number
+        const stringGetsubTotal = parseFloat(getSubtotal);
+        const stringcalculateAmount = parseFloat(calculateAmountTotal);
+        MaxAmount.innerText = stringGetsubTotal + stringcalculateAmount;
+      }
+    });
+}
 
 // tax Exclusive & tax Inclusive
 
