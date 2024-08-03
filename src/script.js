@@ -193,6 +193,46 @@ function enableDueDate() {
     getdueDatefild.disabled = false;
   }
 }
+
+// get date & set date
+
+document
+  .getElementById("datePickerInputs")
+  .addEventListener("click", function () {
+    const getDate = document.getElementById("datePickerInput").value;
+    const getsDate = document.getElementById("datePickerInputs").value;
+    const strinsetDate = parseInt(getsDate);
+    const StringgetDate = parseInt(getDate.slice(-2));
+    const newDate = StringgetDate + strinsetDate;
+    console.log(newDate);
+    // set value
+    const setDate = getDate.slice(0, -2);
+    const finalDate = setDate + newDate;
+    console.log(finalDate);
+  });
+
+document
+  .getElementById("datePickerInputs")
+  .addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      const getDate = document.getElementById("datePickerInput").value;
+      const getsDate = document.getElementById("datePickerInputs");
+      const setDateget = getsDate.value;
+      const strinsetDate = parseInt(setDateget);
+      const StringgetDate = parseInt(getDate.slice(-2));
+      const newDate = StringgetDate + strinsetDate;
+
+      if (newDate > 31) {
+        alert("this date is not this month");
+      } else {
+        // set value
+        const setDate = getDate.slice(0, -2);
+        const finalDate = setDate + newDate;
+        getsDate.value = finalDate;
+      }
+    }
+  });
+
 // Date Picker END
 
 // table part start
